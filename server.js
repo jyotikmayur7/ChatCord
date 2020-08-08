@@ -16,10 +16,10 @@ io.on('connection', socket => {
     // Welcome current user
     socket.emit('message', 'Welcome to ChatCord');
 
-    // Broadcast when a user connects (sends message to everyone except the user who is just connected)
+    // Broadcast when a user connects (sends message to everyone except the user who just got connected)
     socket.broadcast.emit('message', 'A user has joined that chat');
 
-    // Runs when user disconnects
+    // Runs when user disconnects (sends message to everyone except the user who just got disconnected)
     socket.on('disconnect', () => {
         io.emit('message', 'A user has left that chat');
     })
