@@ -22,6 +22,12 @@ io.on('connection', socket => {
     // Runs when user disconnects (sends message to everyone except the user who just got disconnected)
     socket.on('disconnect', () => {
         io.emit('message', 'A user has left that chat');
+    });
+
+    // Listen for chat message
+    socket.on('chatMessage', (msg) => {
+        // Sending the incoming user message to everyone
+        io.emit('message', msg);
     })
 })
 
