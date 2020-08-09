@@ -7,7 +7,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 const formatMessage = require('./utils/messages.js');
-const { userJoin, getCurrentUser } = require('./utils/users.js');
+const { userJoin, getCurrentUser, userLeave, getRoomUsers } = require('./utils/users.js');
 
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -40,8 +40,12 @@ io.on('connection', socket => {
 
     // Runs when user disconnects (sends message to everyone except the user who just got disconnected)
     socket.on('disconnect', () => {
-        const user = getCurrentUser(socket.id);
-        io.to(user.room).emit('message', formatMessage(botName, `${user.username} has left the chat`));
+        const user = userLeave(socket.id);
+
+        if (user) {
+            io.to(user.room).emit('message', formatMessage(botName, `${user.username} has left the chat`));
+        }
+
     });
 })
 
