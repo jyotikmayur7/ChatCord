@@ -6,6 +6,7 @@ const socketio = require('socket.io');
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
+const formatMessage = require('./utils/messages.js');
 
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
