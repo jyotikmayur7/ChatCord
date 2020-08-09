@@ -1,4 +1,4 @@
-const uers = [];
+const users = [];
 
 // Join user to chat
 function userJoin(id, username, room) {
@@ -17,4 +17,4 @@ function getCurrentUser(id) {
 module.exports = {
     userJoin,
     getCurrentUser
-}
+};
